@@ -1,0 +1,19 @@
+Zaimplementuj komunikacje producer-consumer miedzy dwiema grupami wątków.
+Producer: działa periodycznie (np: raz na 1s) oraz określona ilość razy (np: 30 razy)
+Zadaniem producera jest wyciąganie ofert pracy z jakiegoś systemu ofert pracy (np: just join it, glassdoor, albo cos)
+Producent w czystej formie sciaga te oferty i dostarcza je Consumerowi Pierwszemu poziomu
+Consumer pierwszego poziomu ma za zadanie stworzyc z nich obiekt
+JobOffer (title, salary, description, startDate, technologies, mainProgrammingLanguage)
+jesli nie jest mozliwe uzyskanie jakiegos pola - dajemy tam null.
+Consumer pierwszego poziomu przesyla dalej oferty do consumera drugiego poziomu, ktore te oferty klasyfikuje i wysyla maile
+(jakis fake interfejs, nie musicie wysylac prawdziwych maili) do osob zainteresowanych dana oferta,
+tzn: consumer drugiego poziomu ma jakas "baze danych" w ktorym jest skorelowane:
+ofertami dla javy interesją się osoby X,Y,Z itp.
+Pamiętajcie że:
+- moze byc wiele producentow
+- moze byc wiele consumerow pierwszego poziomu
+- moze byc wiele consumerow drugiego poziomu (wspoldzielona "baza danych")
+
+Nalezy zadbac o:
+-zakonczenie consumerow w moemencie gdy zaden producent nie jest juz aktywny oraz przetworzono wszystkie juz oferty z kolejki.
+-wytestowanie jednostkowo danego mechanizmu, czyli kod musi byc napisany w sposob testowalny.

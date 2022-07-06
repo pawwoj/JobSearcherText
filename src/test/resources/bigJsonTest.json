@@ -1,0 +1,224 @@
+[
+  {
+    "title": "Offer1",
+    "street": "street1",
+    "city": "City1",
+    "country_code": "TEST",
+    "address_text": "test1",
+    "marker_icon": "Java",
+    "workplace_type": "partly_remote",
+    "company_name": "CompanyTest1",
+    "company_url": "CompanyTestUrl1",
+    "company_size": "1",
+    "experience_level": "senior",
+    "latitude": "1",
+    "longitude": "1",
+    "published_at": "test1",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": false,
+    "id": "id_test1",
+    "display_offer": true,
+    "employment_types": [
+      {
+        "type": "permanent",
+        "salary": {
+          "from": 13300,
+          "to": 15000,
+          "currency": "pln"
+        }
+      }
+    ],
+    "company_logo_url": "CompanyLogoUrl1",
+    "skills": [
+      {
+        "name": "SQL",
+        "level": 3
+      },
+      {
+        "name": "C",
+        "level": 4
+      },
+      {
+        "name": "PHP",
+        "level": 4
+      }
+    ],
+    "remote": false,
+    "multilocation": [
+      {
+        "city": "CityTest1",
+        "street": "StreetTest1",
+        "slug": "studocu-tech-team-lead"
+      }
+    ],
+    "way_of_apply": "redirect"
+  },
+  {
+    "title": "Offer2",
+    "street": "t",
+    "city": "t",
+    "country_code": "NL",
+    "address_text": "t",
+    "marker_icon": "devops",
+    "workplace_type": "t",
+    "company_name": "t",
+    "company_url": "t",
+    "company_size": "t",
+    "experience_level": "senior",
+    "latitude": "t",
+    "longitude": "1",
+    "published_at": "1",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": false,
+    "id": "Offer2 desc-id",
+    "display_offer": true,
+    "employment_types": [
+      {
+        "type": "permanent",
+        "salary": {
+          "from": 30000,
+          "to": 50000,
+          "currency": "pln"
+        }
+      }
+    ],
+    "company_logo_url": "t",
+    "skills": [
+      {
+        "name": "Java",
+        "level": 3
+      },
+      {
+        "name": "Docker",
+        "level": 4
+      },
+      {
+        "name": "AWS",
+        "level": 4
+      }
+    ],
+    "remote": false,
+    "multilocation": [
+      {
+        "city": "t",
+        "street": "t",
+        "slug": "t"
+      }
+    ],
+    "way_of_apply": "t"
+  },
+  {
+    "title": "Offer3",
+    "street": "t",
+    "city": "t",
+    "country_code": "PL",
+    "address_text": "t",
+    "marker_icon": "Java",
+    "workplace_type": "t",
+    "company_name": "t",
+    "company_url": "t",
+    "company_size": "t",
+    "experience_level": "mid",
+    "latitude": "t",
+    "longitude": "t",
+    "published_at": "t",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": true,
+    "id": "Offer3 desc-id",
+    "display_offer": true,
+    "employment_types": [
+      {
+        "type": "permanent",
+        "salary": {
+          "from": 3300,
+          "to": 5000,
+          "currency": "eur"
+        }
+      }
+    ],
+    "company_logo_url": "t",
+    "skills": [
+      {
+        "name": "REST",
+        "level": 3
+      },
+      {
+        "name": "JavaScript",
+        "level": 3
+      },
+      {
+        "name": "Spring Boot",
+        "level": 4
+      }
+    ],
+    "remote": true,
+    "multilocation": [
+      {
+        "city": "t",
+        "slug": "t",
+        "street": "t"
+      },
+      {
+        "city": "t",
+        "slug": "t",
+        "street": "t"
+      },
+      {
+        "city": "t",
+        "slug": "t",
+        "street": "t"
+      }
+    ],
+    "way_of_apply": "t"
+  },
+  {
+    "title": "Offer4",
+    "street": "t",
+    "city": "t",
+    "country_code": "PL",
+    "address_text": "t",
+    "marker_icon": "c",
+    "workplace_type": "t",
+    "company_name": "t",
+    "company_url": "t",
+    "company_size": "t",
+    "experience_level": "mid",
+    "latitude": "t",
+    "longitude": "t",
+    "published_at": "t",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": false,
+    "id": "Offer4 desc-id",
+    "display_offer": false,
+    "employment_types": [
+      {
+        "type": "b2b",
+        "salary": null
+      }
+    ],
+    "company_logo_url": "t",
+    "skills": [
+      {
+        "name": "Client-Server and P2P Architecture",
+        "level": 3
+      },
+      {
+        "name": "Unreal Engine 4",
+        "level": 3
+      },
+      {
+        "name": "C++",
+        "level": 4
+      }
+    ],
+    "remote": true,
+    "multilocation": [
+      {
+        "city": "t",
+        "street": "t",
+        "slug": "t"
+      }
+    ],
+    "way_of_apply": "t"
+  }
+]
