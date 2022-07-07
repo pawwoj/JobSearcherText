@@ -32,7 +32,7 @@ public class ProducerService {
         return url;
     }
 
-    public JsonNode getBigJsonFromURL(URL url) {
+    public JsonNode getSourceJsonFromURL(URL url) {
         JsonNode json = null;
         try {
             json = objectMapper.readTree(url);
@@ -42,20 +42,23 @@ public class ProducerService {
         return json;
     }
 
-    public boolean putToBlockingQRawOffersFromBigNode(JsonNode bigJsonNode,
+    public boolean putToBlockingQRawOffersFromBigNode(JsonNode sourceJsonNode,
                                                       int prodLoop,
                                                       AtomicInteger threadXLoop,
                                                       BlockingQueue<JsonNode> blockingQJsonNode,
                                                       int prodPeriod) {
         for (int i = 0; i < prodLoop; i++) {
             int x = threadXLoop.getAndIncrement();
-/*            System.out.println("Producent put x = " + x + " " +
-                    Thread.currentThread().getName() + " " + bigJsonNode.get(x));*/
+
             try {
-                if (bigJsonNode.size() == x) {
+                if (sourceJsonNode.size() <= x) {
+                    System.out.println("P1 end x = " + x + " - size = "+ sourceJsonNode.size() + " " +
+                            Thread.currentThread().getName() + " " + sourceJsonNode.get(x));
                     return true;
                 }
-                blockingQJsonNode.put(bigJsonNode.get(x));
+                System.out.println("P1 put x = " + x + " " +
+                        Thread.currentThread().getName() + " " + sourceJsonNode.get(x));
+                blockingQJsonNode.put(sourceJsonNode.get(x));
             } catch (Exception e) {
                 throw new JsonNodeToBlockingQueueException(e.getMessage());
             }
@@ -93,7 +96,7 @@ public class ProducerService {
                                                              int numberOfProd,
                                                              JsonNode flagJsonNode) {
         URL url = getUrlFromString(urlString);
-        JsonNode bigJsonNode = getBigJsonFromURL(url);
+        JsonNode bigJsonNode = getSourceJsonFromURL(url);
 //        System.out.println("Start P " + Thread.currentThread().getName());
         putToBlockingQRawOffersFromBigNode(bigJsonNode, prodLoop, threadXLoop, blockingQJsonNode, prodPeriod);
         putFlagToBlockingQAtEndOfLoop(bigJsonNode, threadXLoop, numberOfProd,
