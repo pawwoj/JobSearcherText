@@ -16,9 +16,6 @@ public class DatabaseServiceTest {
 
     private DatabaseService databaseService;
 
-    @Mock
-    private JobOffer jobOfferMock;
-
     @Before
     public void init() {
         MockitoAnnotations.openMocks(this);
@@ -32,7 +29,6 @@ public class DatabaseServiceTest {
                 "IN (SELECT idprogrammer FROM interested " +
                 "WHERE idlanguage = (SELECT id FROM language " +
                 "WHERE name = 'Java')); ";
-        Mockito.when(jobOfferMock.getMainProgrammingLanguage()).thenReturn("Java");
-        assertEquals(databaseService.prepareQueryForLanguage(jobOfferMock), expected);
+        assertEquals(databaseService.prepareQueryForLanguage("Java"), expected);
     }
 }

@@ -42,22 +42,17 @@ public class ProducerService {
         return json;
     }
 
-    public boolean putToBlockingQRawOffersFromBigNode(JsonNode sourceJsonNode,
-                                                      int prodLoop,
-                                                      AtomicInteger threadXLoop,
-                                                      BlockingQueue<JsonNode> blockingQJsonNode,
-                                                      int prodPeriod) {
+    public boolean putToBlockingQRawOffersFromSourceNode(JsonNode sourceJsonNode,
+                                                         int prodLoop,
+                                                         AtomicInteger threadXLoop,
+                                                         BlockingQueue<JsonNode> blockingQJsonNode,
+                                                         int prodPeriod) {
         for (int i = 0; i < prodLoop; i++) {
             int x = threadXLoop.getAndIncrement();
-
             try {
                 if (sourceJsonNode.size() <= x) {
-                    System.out.println("P1 end x = " + x + " - size = "+ sourceJsonNode.size() + " " +
-                            Thread.currentThread().getName() + " " + sourceJsonNode.get(x));
                     return true;
                 }
-                System.out.println("P1 put x = " + x + " " +
-                        Thread.currentThread().getName() + " " + sourceJsonNode.get(x));
                 blockingQJsonNode.put(sourceJsonNode.get(x));
             } catch (Exception e) {
                 throw new JsonNodeToBlockingQueueException(e.getMessage());
@@ -78,14 +73,14 @@ public class ProducerService {
                                                  BlockingQueue<JsonNode> blockingQJsonNode,
                                                  JsonNode flagJsonNode) {
         if (threadXLoop.get() == numberOfProd * prodLoop || bigJsonNode.size() < threadXLoop.get()) {
-//            System.out.println("ATOMIC FLAG " + Thread.currentThread().getName() + " " + threadXLoop.get());
             try {
                 blockingQJsonNode.put(flagJsonNode);
+                return true;
             } catch (InterruptedException e) {
                 throw new JsonNodeToBlockingQueueException(e.getMessage());
             }
         }
-        return true;
+        return false;
     }
 
     public boolean takeBigJsonNodeAndPutRawOffersToBlockingQ(String urlString,
@@ -96,10 +91,9 @@ public class ProducerService {
                                                              int numberOfProd,
                                                              JsonNode flagJsonNode) {
         URL url = getUrlFromString(urlString);
-        JsonNode bigJsonNode = getSourceJsonFromURL(url);
-//        System.out.println("Start P " + Thread.currentThread().getName());
-        putToBlockingQRawOffersFromBigNode(bigJsonNode, prodLoop, threadXLoop, blockingQJsonNode, prodPeriod);
-        putFlagToBlockingQAtEndOfLoop(bigJsonNode, threadXLoop, numberOfProd,
+        JsonNode sourceJsonNode = getSourceJsonFromURL(url);
+        putToBlockingQRawOffersFromSourceNode(sourceJsonNode, prodLoop, threadXLoop, blockingQJsonNode, prodPeriod);
+        putFlagToBlockingQAtEndOfLoop(sourceJsonNode, threadXLoop, numberOfProd,
                 prodLoop, blockingQJsonNode, flagJsonNode);
         return true;
     }

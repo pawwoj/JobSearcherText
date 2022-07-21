@@ -2,7 +2,6 @@ package service;
 
 import connection.DBCPDataSource;
 import exceptions.EmailListFromDatabaseException;
-import model.JobOffer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,8 +9,7 @@ import java.util.List;
 
 public class DatabaseService {
 
-    public String prepareQueryForLanguage(JobOffer jobOffer) {
-        String language = jobOffer.getMainProgrammingLanguage();
+    public String prepareQueryForLanguage(String language) {
         String query = "";
         query = "SELECT email FROM programmer " +
                 "WHERE id " +

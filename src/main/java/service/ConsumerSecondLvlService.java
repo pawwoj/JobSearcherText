@@ -24,7 +24,6 @@ public class ConsumerSecondLvlService implements SendEmail {
         boolean isFlag = false;
         if (currentJobOffer.equals(flagJobOffer)) {
             isFlag = true;
-//            System.out.println("koniec C2 " + Thread.currentThread().getName());
         }
         return isFlag;
     }
@@ -41,7 +40,7 @@ public class ConsumerSecondLvlService implements SendEmail {
 
     public List<String> getFromDatabaseAppropriateEmailsListForJobOffer(JobOffer jobOffer,
                                                                         DatabaseService databaseService) {
-        String query = databaseService.prepareQueryForLanguage(jobOffer);
+        String query = databaseService.prepareQueryForLanguage(jobOffer.getMainProgrammingLanguage());
         return databaseService.getEmailsListFromDb(query);
     }
 
@@ -64,6 +63,6 @@ public class ConsumerSecondLvlService implements SendEmail {
 
     @Override
     public void sendEmail(List<String> list, JobOffer jobOffer) {
-        System.out.println(jobOffer.getTitle() + " send to " + list);
+        System.out.println(jobOffer.getTitle() + " sent to " + list);
     }
 }

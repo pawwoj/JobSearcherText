@@ -1,6 +1,6 @@
 [
   {
-    "title": "Offer1",
+    "title": "Offer1Java",
     "street": "street1",
     "city": "City1",
     "country_code": "TEST",
@@ -54,12 +54,12 @@
     "way_of_apply": "redirect"
   },
   {
-    "title": "Offer2",
+    "title": "Offer2Python",
     "street": "t",
     "city": "t",
     "country_code": "NL",
     "address_text": "t",
-    "marker_icon": "devops",
+    "marker_icon": "Python",
     "workplace_type": "t",
     "company_name": "t",
     "company_url": "t",
@@ -108,7 +108,7 @@
     "way_of_apply": "t"
   },
   {
-    "title": "Offer3",
+    "title": "Offer3Java",
     "street": "t",
     "city": "t",
     "country_code": "PL",
@@ -172,7 +172,7 @@
     "way_of_apply": "t"
   },
   {
-    "title": "Offer4",
+    "title": "Offer4C",
     "street": "t",
     "city": "t",
     "country_code": "PL",
@@ -204,6 +204,114 @@
       },
       {
         "name": "Unreal Engine 4",
+        "level": 3
+      },
+      {
+        "name": "C++",
+        "level": 4
+      }
+    ],
+    "remote": true,
+    "multilocation": [
+      {
+        "city": "t",
+        "street": "t",
+        "slug": "t"
+      }
+    ],
+    "way_of_apply": "t"
+  },
+  {
+    "title": "Offer5C",
+    "street": "t",
+    "city": "t",
+    "country_code": "PL",
+    "address_text": "t",
+    "marker_icon": "c",
+    "workplace_type": "t",
+    "company_name": "t",
+    "company_url": "t",
+    "company_size": "t",
+    "experience_level": "mid",
+    "latitude": "t",
+    "longitude": "t",
+    "published_at": "t",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": false,
+    "id": "Offer5 desc-id",
+    "display_offer": false,
+    "employment_types": [
+      {
+        "type": "permanent",
+        "salary": {
+          "from": 13300,
+          "to": 15000,
+          "currency": "eur"
+        }
+      }
+    ],
+    "company_logo_url": "t",
+    "skills": [
+      {
+        "name": "Client-Server",
+        "level": 3
+      },
+      {
+        "name": "Unreal",
+        "level": 3
+      },
+      {
+        "name": "C++",
+        "level": 4
+      }
+    ],
+    "remote": true,
+    "multilocation": [
+      {
+        "city": "t",
+        "street": "t",
+        "slug": "t"
+      }
+    ],
+    "way_of_apply": "t"
+  },
+  {
+    "title": "Offer6Java",
+    "street": "t",
+    "city": "t",
+    "country_code": "PL",
+    "address_text": "t",
+    "marker_icon": "Java",
+    "workplace_type": "t",
+    "company_name": "t",
+    "company_url": "t",
+    "company_size": "t",
+    "experience_level": "mid",
+    "latitude": "t",
+    "longitude": "t",
+    "published_at": "t",
+    "remote_interview": true,
+    "open_to_hire_ukrainians": false,
+    "id": "Offer6 desc-id",
+    "display_offer": false,
+    "employment_types": [
+      {
+        "type": "permanent",
+        "salary": {
+          "from": 23300,
+          "to": 35000,
+          "currency": "pln"
+        }
+      }
+    ],
+    "company_logo_url": "t",
+    "skills": [
+      {
+        "name": "P2P Architecture",
+        "level": 3
+      },
+      {
+        "name": "Engine 4",
         "level": 3
       },
       {

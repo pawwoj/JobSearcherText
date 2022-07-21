@@ -2,7 +2,10 @@ package application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.Getter;
+import lombok.Setter;
 import model.*;
+import service.DatabaseService;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -10,16 +13,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Setter
+@Getter
 public class App {
     private BlockingQueue<JsonNode> blockingQueueRaw = new LinkedBlockingQueue<>(10);
     private BlockingQueue<JobOffer> blockingQueueOffer = new LinkedBlockingQueue<>(10);
 
     private JobOffer flagJobOffer = new JobOffer("!END-OF-LOOP!");
     private JsonNode flagJsonNode = getFlagJsonNode();
-
-    public JobOffer getFlagJobOffer() {
-        return flagJobOffer;
-    }
+    private boolean isExecutorForProducersTerminated = false;
+    private boolean isExecutorForCons1Terminated = false;
+    private boolean isExecutorForCons2Terminated = false;
 
     public JsonNode getFlagJsonNode() {
         JsonNode flag;
@@ -31,13 +35,13 @@ public class App {
         return flag;
     }
 
-
     public void run(int numberOfProd,
                     int prodPeriod,
                     int prodLoop,
                     int numberOfCons1,
                     int numberOfCons2,
-                    String url) {
+                    String url,
+                    DatabaseService databaseService) {
 
         AtomicInteger atomicPThreadXLoop = new AtomicInteger(0);
 
@@ -64,12 +68,31 @@ public class App {
             execConsI.submit(consumerFirstLvl);
         }
 
-        ConsumerSecondLvl consumerSecondLvl = new ConsumerSecondLvl(blockingQueueOffer, getFlagJobOffer());
+        ConsumerSecondLvl consumerSecondLvl = new ConsumerSecondLvl(blockingQueueOffer, getFlagJobOffer(), databaseService);
         for (int i = 0; i < numberOfCons2; i++) {
             execConsII.submit(consumerSecondLvl);
         }
         execProd.shutdown();
         execConsI.shutdown();
         execConsII.shutdown();
+
+        while (true) {
+            if (execProd.isTerminated()) {
+                setExecutorForProducersTerminated(true);
+                break;
+            }
+        }
+        while (true) {
+            if (execConsI.isTerminated()) {
+                setExecutorForCons1Terminated(true);
+                break;
+            }
+        }
+        while (true) {
+            if (execConsII.isTerminated()) {
+                setExecutorForCons2Terminated(true);
+                break;
+            }
+        }
     }
 }

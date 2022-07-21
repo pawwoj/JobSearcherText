@@ -49,7 +49,7 @@ public class ProducerServiceTest {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        producerService.getBigJsonFromURL(invalid);
+        producerService.getSourceJsonFromURL(invalid);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class ProducerServiceTest {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        JsonNode received = producerService.getBigJsonFromURL(url);
-        assertEquals(received.size(), 4);
+        JsonNode received = producerService.getSourceJsonFromURL(url);
+        assertEquals(received.size(), 6);
     }
 
     @Test
@@ -74,13 +74,13 @@ public class ProducerServiceTest {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        JsonNode bigNode = producerService.getBigJsonFromURL(url);
+        JsonNode bigNode = producerService.getSourceJsonFromURL(url);
         BlockingQueue<JsonNode> bQ = new LinkedBlockingQueue<>(10);
         int prodLoop = 3;
         AtomicInteger atomicInteger = new AtomicInteger(0);
         int period = 10;
         boolean received = producerService
-                .putToBlockingQRawOffersFromBigNode(bigNode, prodLoop, atomicInteger, bQ, period);
+                .putToBlockingQRawOffersFromSourceNode(bigNode, prodLoop, atomicInteger, bQ, period);
 
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(received).isEqualTo(true);
@@ -98,19 +98,19 @@ public class ProducerServiceTest {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        JsonNode bigNode = producerService.getBigJsonFromURL(url);
+        JsonNode bigNode = producerService.getSourceJsonFromURL(url);
         BlockingQueue<JsonNode> bQ = new LinkedBlockingQueue<>(10);
-        int prodLoop = 5;
+        int prodLoop = 7;
         AtomicInteger atomicInteger = new AtomicInteger(0);
         int period = 10;
 
         boolean received = producerService
-                .putToBlockingQRawOffersFromBigNode(bigNode, prodLoop, atomicInteger, bQ, period);
+                .putToBlockingQRawOffersFromSourceNode(bigNode, prodLoop, atomicInteger, bQ, period);
 
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(received).isEqualTo(true);
-        sAssert.assertThat(bQ.size()).isEqualTo(4);
-        sAssert.assertThat(atomicInteger.get()).isEqualTo(5);
+        sAssert.assertThat(bQ.size()).isEqualTo(6);
+        sAssert.assertThat(atomicInteger.get()).isEqualTo(7);
         sAssert.assertAll();
     }
 
@@ -130,7 +130,7 @@ public class ProducerServiceTest {
         AtomicInteger atomicInteger = new AtomicInteger(0);
         int period = 10;
         producerService
-                .putToBlockingQRawOffersFromBigNode(bigNode, prodLoop, atomicInteger, bQ, period);
+                .putToBlockingQRawOffersFromSourceNode(bigNode, prodLoop, atomicInteger, bQ, period);
 
     }
 
@@ -149,7 +149,7 @@ public class ProducerServiceTest {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        JsonNode bigNode = producerService.getBigJsonFromURL(url);
+        JsonNode bigNode = producerService.getSourceJsonFromURL(url);
         BlockingQueue<JsonNode> bQ = new LinkedBlockingQueue<>(10);
         int prodLoop = 2;
         AtomicInteger atomicInteger = new AtomicInteger(4);
@@ -180,10 +180,10 @@ public class ProducerServiceTest {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        JsonNode bigNode = producerService.getBigJsonFromURL(url);
+        JsonNode bigNode = producerService.getSourceJsonFromURL(url);
         BlockingQueue<JsonNode> bQ = new LinkedBlockingQueue<>(10);
-        int prodLoop = 3;
-        AtomicInteger atomicInteger = new AtomicInteger(5);
+        int prodLoop = 5;
+        AtomicInteger atomicInteger = new AtomicInteger(7);
         int numberOfProd = 2;
 
         boolean received = producerService
@@ -234,7 +234,7 @@ public class ProducerServiceTest {
         }
 
         BlockingQueue<JsonNode> bQ = new LinkedBlockingQueue<>(10);
-        int prodLoop = 6;
+        int prodLoop = 8;
         AtomicInteger atomicInteger = new AtomicInteger(0);
         int numberOfProd = 1;
         int prodPeriod = 2;
@@ -245,7 +245,7 @@ public class ProducerServiceTest {
 
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(received).isEqualTo(true);
-        sAssert.assertThat(bQ.size()).isEqualTo(5);
+        sAssert.assertThat(bQ.size()).isEqualTo(7);
         sAssert.assertThat(bQ.contains(flag)).isEqualTo(true);
         sAssert.assertAll();
     }

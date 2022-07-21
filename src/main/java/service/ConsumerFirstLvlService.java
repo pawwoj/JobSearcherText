@@ -50,7 +50,6 @@ public class ConsumerFirstLvlService {
         boolean isFlag = false;
         if (currentJsonNode.equals(flagJsonNode)) {
             isFlag = true;
-//            System.out.println("end C1 " + Thread.currentThread().getName());
         }
         return isFlag;
     }
@@ -75,14 +74,10 @@ public class ConsumerFirstLvlService {
     }
 
     public boolean takeJsonNodeAndPutJobOffer(BlockingQueue<JsonNode> blockingQJsonNode,
-                                           BlockingQueue<JobOffer> blockingQJobOffer,
-                                           JsonNode flagJsonNode,
-                                           JobOffer flagJobOffer) {
+                                              BlockingQueue<JobOffer> blockingQJobOffer,
+                                              JsonNode flagJsonNode,
+                                              JobOffer flagJobOffer) {
         while (true) {
-//            if (blockingQJsonNode.contains(flagJsonNode)){
-//                putFlagToJobOfferBlockingQ(blockingQJobOffer, flagJobOffer);
-//                return;
-//            }
             JsonNode jsonNode = takeJsonNodeFromBlockingQ(blockingQJsonNode);
             if (isNodeFlag(jsonNode, flagJsonNode)) {
                 putFlagToJobOfferBlockingQ(blockingQJobOffer, flagJobOffer);

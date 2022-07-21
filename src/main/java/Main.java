@@ -1,4 +1,5 @@
 import application.App;
+import service.DatabaseService;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,6 +8,8 @@ public class Main {
 
         App app = new App();
 
-        app.run(2,100,5,3,4, stringUrl);
+        DatabaseService dbService = new DatabaseService();
+
+        app.run(4, 1, 500, 3, 3, path, dbService);
     }
 }

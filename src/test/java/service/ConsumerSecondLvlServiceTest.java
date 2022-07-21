@@ -83,9 +83,8 @@ public class ConsumerSecondLvlServiceTest {
         }
         String query = "test";
         List<String> emails = List.of("p1@gmail.com", "p5@gmail.com");
-        String expectedSOUT = "Offer1 send to [p1@gmail.com, p5@gmail.com]";
 
-        Mockito.when(databaseServiceMock.prepareQueryForLanguage(jobOffer)).thenReturn(query);
+        Mockito.when(databaseServiceMock.prepareQueryForLanguage("Java")).thenReturn(query);
         Mockito.when(databaseServiceMock.getEmailsListFromDb(query)).thenReturn(emails);
 
         boolean received = service.takeJobOffersFromBlockingQAndSendEmails(bQ, flag, databaseServiceMock);
@@ -93,9 +92,7 @@ public class ConsumerSecondLvlServiceTest {
         sAssert.assertThat(received).isTrue();
         sAssert.assertThat(bQ.contains(jobOffer)).isFalse();
         sAssert.assertThat(bQ.contains(flag)).isTrue();
-        sAssert.assertThat(outputStreamCaptor.toString().trim()).isEqualTo(expectedSOUT);
+        sAssert.assertThat(outputStreamCaptor.toString().trim()).contains(emails);
         sAssert.assertAll();
     }
-
-
 }

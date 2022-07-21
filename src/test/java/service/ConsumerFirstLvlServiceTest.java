@@ -64,7 +64,7 @@ public class ConsumerFirstLvlServiceTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        JobOffer expected = new JobOffer("Offer1",
+        JobOffer expected = new JobOffer("Offer1Java",
                 "13300 - 15000", "id_test1",
                 null,
                 List.of("SQL", "C", "PHP"),
@@ -91,7 +91,7 @@ public class ConsumerFirstLvlServiceTest {
 
     @Test
     public void shouldPutJobOfferToBlockingQ() {
-        JobOffer jobOffer = new JobOffer("Offer1",
+        JobOffer jobOffer = new JobOffer("Offer1Java",
                 "13300 - 15000", "id_test1",
                 null,
                 List.of("SQL", "C", "PHP"),
@@ -116,7 +116,7 @@ public class ConsumerFirstLvlServiceTest {
 
     @Test
     public void shouldTakeJsonNodeAndPutJobOfferAndFlagAtEndToBlockingQueue() {
-        JobOffer jobOffer = new JobOffer("Offer1",
+        JobOffer jobOffer = new JobOffer("Offer1Java",
                 "13300 - 15000", "id_test1",
                 null,
                 List.of("SQL", "C", "PHP"),

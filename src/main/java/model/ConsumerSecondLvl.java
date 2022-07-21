@@ -15,8 +15,9 @@ public class ConsumerSecondLvl implements Runnable {
     private BlockingQueue<JobOffer> blockingQueue;
     @NonNull
     private JobOffer flagJobOffer;
+    @NonNull
+    DatabaseService databaseService;
     private ConsumerSecondLvlService cons2Service = new ConsumerSecondLvlService();
-    DatabaseService databaseService = new DatabaseService();
 
     @Override
     public void run() {
