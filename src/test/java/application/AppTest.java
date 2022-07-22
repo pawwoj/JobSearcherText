@@ -48,6 +48,12 @@ public class AppTest {
 
         app.run(3, 4, 4, 2, 2, json, dbServiceMock);
 
+        while (true){
+            if (app.getExecutorService().isTerminated()){
+                break;
+            }
+        }
+
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer1Java sent to " + emailsJava);
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer2Python sent to " + emailsPython);
@@ -55,10 +61,6 @@ public class AppTest {
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer4C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer5C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer6Java sent to " + emailsJava);
-
-        sAssert.assertThat(app.isExecutorForProducersTerminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons1Terminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons2Terminated()).isTrue();
         sAssert.assertAll();
     }
 
@@ -84,6 +86,11 @@ public class AppTest {
         Mockito.when(dbServiceMock.getEmailsListFromDb(queryC)).thenReturn(emailsC);
 
         app.run(2, 4, 3, 2, 2, json, dbServiceMock);
+        while (true){
+            if (app.getExecutorService().isTerminated()){
+                break;
+            }
+        }
 
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer1Java sent to " + emailsJava);
@@ -92,10 +99,6 @@ public class AppTest {
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer4C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer5C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer6Java sent to " + emailsJava);
-
-        sAssert.assertThat(app.isExecutorForProducersTerminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons1Terminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons2Terminated()).isTrue();
         sAssert.assertAll();
     }
 
@@ -121,6 +124,11 @@ public class AppTest {
         Mockito.when(dbServiceMock.getEmailsListFromDb(queryC)).thenReturn(emailsC);
 
         app.run(2, 4, 2, 2, 2, json, dbServiceMock);
+        while (true){
+            if (app.getExecutorService().isTerminated()){
+                break;
+            }
+        }
 
         SoftAssertions sAssert = new SoftAssertions();
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer1Java sent to " + emailsJava);
@@ -129,10 +137,6 @@ public class AppTest {
         sAssert.assertThat(outputStreamCaptor.toString()).contains("Offer4C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).doesNotContain("Offer5C sent to " + emailsC);
         sAssert.assertThat(outputStreamCaptor.toString()).doesNotContain("Offer6Java sent to " + emailsJava);
-
-        sAssert.assertThat(app.isExecutorForProducersTerminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons1Terminated()).isTrue();
-        sAssert.assertThat(app.isExecutorForCons2Terminated()).isTrue();
         sAssert.assertAll();
     }
 }

@@ -21,9 +21,7 @@ public class App {
 
     private JobOffer flagJobOffer = new JobOffer("!END-OF-LOOP!");
     private JsonNode flagJsonNode = getFlagJsonNode();
-    private boolean isExecutorForProducersTerminated = false;
-    private boolean isExecutorForCons1Terminated = false;
-    private boolean isExecutorForCons2Terminated = false;
+    private ExecutorService executorService;
 
     public JsonNode getFlagJsonNode() {
         JsonNode flag;
@@ -44,10 +42,7 @@ public class App {
                     DatabaseService databaseService) {
 
         AtomicInteger atomicPThreadXLoop = new AtomicInteger(0);
-
-        ExecutorService execProd = Executors.newFixedThreadPool(numberOfProd);
-        ExecutorService execConsI = Executors.newFixedThreadPool(numberOfCons1);
-        ExecutorService execConsII = Executors.newFixedThreadPool(numberOfCons2);
+        executorService = Executors.newFixedThreadPool(numberOfProd + numberOfCons1 + numberOfCons2);
 
         Producer producer = new Producer(blockingQueueRaw,
                 getFlagJsonNode(),
@@ -57,7 +52,7 @@ public class App {
                 prodLoop,
                 atomicPThreadXLoop);
         for (int i = 0; i < numberOfProd; i++) {
-            execProd.submit(producer);
+            executorService.submit(producer);
         }
 
         ConsumerFirstLvl consumerFirstLvl = new ConsumerFirstLvl(blockingQueueRaw,
@@ -65,34 +60,17 @@ public class App {
                 getFlagJsonNode(),
                 getFlagJobOffer());
         for (int i = 0; i < numberOfCons1; i++) {
-            execConsI.submit(consumerFirstLvl);
+            executorService.submit(consumerFirstLvl);
         }
 
         ConsumerSecondLvl consumerSecondLvl = new ConsumerSecondLvl(blockingQueueOffer, getFlagJobOffer(), databaseService);
         for (int i = 0; i < numberOfCons2; i++) {
-            execConsII.submit(consumerSecondLvl);
+            executorService.submit(consumerSecondLvl);
         }
-        execProd.shutdown();
-        execConsI.shutdown();
-        execConsII.shutdown();
+        executorService.shutdown();
+    }
 
-        while (true) {
-            if (execProd.isTerminated()) {
-                setExecutorForProducersTerminated(true);
-                break;
-            }
-        }
-        while (true) {
-            if (execConsI.isTerminated()) {
-                setExecutorForCons1Terminated(true);
-                break;
-            }
-        }
-        while (true) {
-            if (execConsII.isTerminated()) {
-                setExecutorForCons2Terminated(true);
-                break;
-            }
-        }
+    public ExecutorService getExecutorService() {
+        return executorService;
     }
 }
